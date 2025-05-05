@@ -21,7 +21,7 @@
     }
   },
   "scripts": {
-    "test": "php vendor/bin/phpunit tests",
+    "test": "php vendor/bin/phpunit",
     "game": "php run.php game:run",
     "game:custom": "@php run.php game:run --input=$INPUT --output=$OUTPUT"
   }
