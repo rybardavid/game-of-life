@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Life;
+namespace Life\Input;
 
 use Exception;
 

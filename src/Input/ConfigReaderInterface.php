@@ -3,7 +3,6 @@
 namespace Life\Input;
 
 use Life\Config\GameConfig;
-use Life\InvalidInputException;
 
 interface ConfigReaderInterface
 {

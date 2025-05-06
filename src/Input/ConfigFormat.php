@@ -2,8 +2,6 @@
 
 namespace Life\Input;
 
-use Life\InvalidInputException;
-
 enum ConfigFormat: string
 {
     case XML = 'xml';

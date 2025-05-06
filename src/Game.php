@@ -3,7 +3,7 @@
 namespace Life;
 
 use Life\Input\ConfigReaderFactory;
-use Life\Input\XmlFileConfigReader;
+use Life\Input\InvalidInputException;
 
 class Game
 {
