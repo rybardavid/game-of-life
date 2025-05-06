@@ -2,6 +2,8 @@
 
 namespace Life;
 
+use Life\Input\XmlFileReader;
+
 class Game
 {
     private int $iterationsCount;
@@ -20,14 +22,13 @@ class Game
     public function run(string $inputFile, string $outputFile): void
     {
         $input = new XmlFileReader($inputFile);
-        $output = new XmlFileWriter($outputFile);
 
-        [$size, $species, $cells, $iterationsCount] = $input->loadFile();
+        $gameConfig = $input->loadFile();
 
-        $this->size = $size;
-        $this->species = $species;
-        $this->cells = $cells;
-        $this->iterationsCount = $iterationsCount;
+        $this->size = $gameConfig->worldSize;
+        $this->species = $gameConfig->species;
+        $this->cells = $gameConfig->cells;;
+        $this->iterationsCount = $gameConfig->iterationsCount;
 
         for ($i = 0; $i < $this->iterationsCount; $i++) {
             $newCells = [];
@@ -40,6 +41,7 @@ class Game
             $this->cells = $newCells;
         }
 
+        $output = new XmlFileWriter($outputFile);
         $output->saveWorld($this->size, $this->species, $this->cells);
     }
 

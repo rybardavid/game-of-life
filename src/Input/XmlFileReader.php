@@ -1,7 +1,9 @@
 <?php declare(strict_types = 1);
 
-namespace Life;
+namespace Life\Input;
 
+use Life\Config\GameConfig;
+use Life\InvalidInputException;
 use SimpleXMLElement;
 
 class XmlFileReader
@@ -10,29 +12,35 @@ class XmlFileReader
     {
     }
 
-    public function loadFile(): array
+    /**
+     * @throws InvalidInputException
+     */
+    public function loadFile(): GameConfig
     {
-        $life = $this->loadXmlFile();
-        $this->validateXmlFile($life);
+        $xml = $this->loadXmlFile();
+        $this->validateXmlFile($xml);
 
-        $iterationsCount = (int)$life->world->iterations;
-        if ($iterationsCount < 0) {
-            throw new InvalidInputException("Value of element 'iterations' must be zero or positive number");
-        }
-
-        $worldSize = (int) $life->world->cells;
+        $worldSize = (int) $xml->world->cells;
         if ($worldSize <= 0) {
             throw new InvalidInputException("Value of element 'cells' must be positive number");
         }
 
-        $speciesCount = (int) $life->world->species;
+        $speciesCount = (int) $xml->world->species;
         if ($speciesCount <= 0) {
             throw new InvalidInputException("Value of element 'species' must be positive number");
         }
 
-        $cells = $this->readCells($life, $worldSize, $speciesCount);
+        $iterationsCount = (int)$xml->world->iterations;
+        if ($iterationsCount < 0) {
+            throw new InvalidInputException("Value of element 'iterations' must be zero or positive number");
+        }
 
-        return [$worldSize, $speciesCount, $cells, $iterationsCount];
+        return new GameConfig(
+            $worldSize,
+            $speciesCount,
+            $iterationsCount,
+            $this->readCells($xml, $worldSize, $speciesCount),
+        );
     }
 
     private function loadXmlFile(): SimpleXMLElement
