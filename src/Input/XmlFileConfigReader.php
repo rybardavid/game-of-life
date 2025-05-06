@@ -6,16 +6,21 @@ use Life\Config\GameConfig;
 use Life\InvalidInputException;
 use SimpleXMLElement;
 
-class XmlFileReader
+final class XmlFileConfigReader implements ConfigReaderInterface
 {
     public function __construct(private readonly string $filePath)
     {
     }
 
+    public static function getSupportedExtension(): ConfigFormat
+    {
+        return ConfigFormat::XML;
+    }
+
     /**
      * @throws InvalidInputException
      */
-    public function loadFile(): GameConfig
+    public function load(): GameConfig
     {
         $xml = $this->loadXmlFile();
         $this->validateXmlFile($xml);

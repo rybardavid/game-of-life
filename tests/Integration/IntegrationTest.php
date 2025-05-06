@@ -1,6 +1,6 @@
 <?php declare(strict_types = 1);
 
-namespace Tests\Life;
+namespace Tests\Life\Integration;
 
 use DOMDocument;
 use Life\RunGameCommand;

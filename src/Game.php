@@ -2,7 +2,8 @@
 
 namespace Life;
 
-use Life\Input\XmlFileReader;
+use Life\Input\ConfigReaderFactory;
+use Life\Input\XmlFileConfigReader;
 
 class Game
 {
@@ -19,15 +20,16 @@ class Game
      */
     private array $cells;
 
+    /**
+     * @throws InvalidInputException
+     */
     public function run(string $inputFile, string $outputFile): void
     {
-        $input = new XmlFileReader($inputFile);
-
-        $gameConfig = $input->loadFile();
+        $gameConfig = ConfigReaderFactory::create($inputFile)->load();
 
         $this->size = $gameConfig->worldSize;
         $this->species = $gameConfig->species;
-        $this->cells = $gameConfig->cells;;
+        $this->cells = $gameConfig->cells;
         $this->iterationsCount = $gameConfig->iterationsCount;
 
         for ($i = 0; $i < $this->iterationsCount; $i++) {

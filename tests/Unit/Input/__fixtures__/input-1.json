@@ -1,0 +1,24 @@
+{
+  "world": {
+    "cells": 8,
+    "species": 3,
+    "iterations": 5
+  },
+  "organisms": [
+    {
+      "x_pos": 2,
+      "y_pos": 3,
+      "species": 1
+    },
+    {
+      "x_pos": 2,
+      "y_pos": 4,
+      "species": 1
+    },
+    {
+      "x_pos": 2,
+      "y_pos": 5,
+      "species": 2
+    }
+  ]
+}
